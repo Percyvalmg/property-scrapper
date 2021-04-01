@@ -1,6 +1,7 @@
 import {Table} from "react-bootstrap";
 import React from "react";
 import {PropertyEntity} from "../types";
+import {SRLWrapper} from "simple-react-lightbox";
 
 type PropertyViewProps = { data: PropertyEntity[] }
 export const PropertyView = ({data}: PropertyViewProps) => {
@@ -23,7 +24,21 @@ export const PropertyView = ({data}: PropertyViewProps) => {
             <tbody>
             {data?.map((property: PropertyEntity, index) => <tr key={index}>
                 <td>{index + 1}</td>
-                <td><img src={property.image} style={{width: '100px', height: '100px'}} alt={'Property Image'}/></td>
+                <td>
+                    <SRLWrapper>
+                        <a href={property.image}>
+                            <img src={property.image} style={{width: '100px', height: '100px'}} alt={'Property Image'}/>
+                        </a>
+                        {property.images &&
+                        property.images?.map((image, index) => {
+                            if (index != 0)
+                                return <a href={image} style={{display: 'none'}}>
+                                    <img src={image} style={{width: '100px', height: '100px'}} alt={'Property Image'}/>
+                                </a>
+                        })
+                        }
+                    </SRLWrapper>
+                </td>
                 <td>{property.price}</td>
                 <td>{property.location}</td>
                 <td>{property.bedrooms}</td>

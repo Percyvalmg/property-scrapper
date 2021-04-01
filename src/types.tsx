@@ -1,5 +1,6 @@
 export type PropertyEntity = {
     image: string | undefined;
+    images: string[] | undefined;
     title: string | undefined;
     price: string | undefined;
     location: string | undefined;
