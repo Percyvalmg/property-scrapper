@@ -12,4 +12,10 @@ export type PropertyEntity = {
     rates: string | undefined;
 }
 
+export type PropertyCollection = {
+    propertyData: PropertyEntity[]
+    setPropertyData: (data: PropertyEntity[]) => void
+}
+
+
 

@@ -4,6 +4,7 @@ import axios from "axios";
 import React from "react";
 import * as Yup from "yup";
 import {PropertyEntity} from "../types";
+import {usePropertyData} from "./usePropertyData";
 
 const schema = Yup.object().shape({
     url: Yup.string()
@@ -16,11 +17,12 @@ const schema = Yup.object().shape({
     .required('required'),
 });
 
-type HeadingProps = { data: PropertyEntity[], setData: React.Dispatch<React.SetStateAction<PropertyEntity[]>> };
-export const Header = ({data, setData}: HeadingProps) => {
+type HeadingProps = {};
+export const Header = (props: HeadingProps) => {
     const serverUrl = window.location.origin.toString().includes('localhost') ? 'http://localhost:4000' : 'https://us-central1-property-scrapper-pmg.cloudfunctions.net/app'
+    const {propertyData, setPropertyData} = usePropertyData()
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar expand="sm" bg="dark" variant="dark">
             <Navbar.Brand href="#home">Property Scrapper</Navbar.Brand>
             <Navbar.Toggle/>
             <Navbar.Collapse className={'justify-content-end'}>
@@ -33,7 +35,7 @@ export const Header = ({data, setData}: HeadingProps) => {
                             const response = await axios.get(`${serverUrl}/getPropertyData?url=${url}`);
                             const responseData: PropertyEntity = response.data;
                             let itemAlreadyExist = false;
-                            data.forEach(item => {
+                            (propertyData as PropertyEntity[]).forEach(item => {
                                 itemAlreadyExist =
                                     item.title === responseData.title &&
                                     item.price === responseData.price &&
@@ -41,7 +43,7 @@ export const Header = ({data, setData}: HeadingProps) => {
                             })
 
                             if (!itemAlreadyExist) {
-                                setData([...data, response.data]);
+                                setPropertyData([...propertyData, response.data]);
                             } else {
                                 setErrors({url: 'you have already imported this data'})
                             }

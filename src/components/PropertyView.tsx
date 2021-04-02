@@ -1,54 +1,58 @@
 import {Table} from "react-bootstrap";
-import React from "react";
+import React, {useEffect} from "react";
 import {PropertyEntity} from "../types";
-import {SRLWrapper} from "simple-react-lightbox";
+import {usePropertyData} from "./usePropertyData";
+import {PropertyImage} from "./PropertyImage";
+import {RemoveItemButton} from "./RemoveItemButton";
+import TableScrollbar from 'react-table-scrollbar';
 
-type PropertyViewProps = { data: PropertyEntity[] }
-export const PropertyView = ({data}: PropertyViewProps) => {
+type PropertyViewProps = {}
+export const PropertyView = (props: PropertyViewProps) => {
+    const {propertyData, setPropertyData} = usePropertyData();
+
+    useEffect(() => {
+        console.log('Data', propertyData);
+    }, [propertyData.length])
+
     return (
-        <Table style={{minHeight: '81vh'}} className={'my-auto mx-auto'} striped bordered hover variant="dark">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Image</th>
-                <th>Price</th>
-                <th>location</th>
-                <th>Bedrooms</th>
-                <th>Bathrooms</th>
-                <th>Floor Size</th>
-                <th>Parking</th>
-                <th>Levy</th>
-                <th>Rates</th>
-            </tr>
-            </thead>
-            <tbody>
-            {data?.map((property: PropertyEntity, index) => <tr key={index}>
-                <td>{index + 1}</td>
-                <td>
-                    <SRLWrapper>
-                        <a href={property.image}>
-                            <img src={property.image} style={{width: '100px', height: '100px'}} alt={'Property Image'}/>
-                        </a>
-                        {property.images &&
-                        property.images?.map((image, index) => {
-                            if (index != 0)
-                                return <a href={image} style={{display: 'none'}}>
-                                    <img src={image} style={{width: '100px', height: '100px'}} alt={'Property Image'}/>
-                                </a>
-                        })
-                        }
-                    </SRLWrapper>
-                </td>
-                <td>{property.price}</td>
-                <td>{property.location}</td>
-                <td>{property.bedrooms}</td>
-                <td>{property.bathrooms}</td>
-                <td>{property.floorSize}</td>
-                <td>{property.parking}</td>
-                <td>{property.levy}</td>
-                <td>{property.rates}</td>
-            </tr>)}
-            </tbody>
-        </Table>
+        <div style={{backgroundColor: '#3d4349'}}>
+            <TableScrollbar height={"100vh"}>
+                <Table bordered hover variant="dark">
+                    <thead>
+                    <tr>
+                        <th/>
+                        <th>Image</th>
+                        <th className={'px-5'}>Price</th>
+                        <th>location</th>
+                        <th>Bedrooms</th>
+                        <th>Bathrooms</th>
+                        <th>Floor Size</th>
+                        <th>Parking</th>
+                        <th className={'px-4'}>Levy</th>
+                        <th className={'px-4'}>Rates</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {propertyData.map((property: PropertyEntity, index) => <tr key={index}>
+                        <td className={'p-0'}>
+                            <RemoveItemButton propertyData={propertyData} setPropertyData={setPropertyData}
+                                              index={index}/>
+                        </td>
+                        <td className={'p-0'} style={{maxWidth: '100px', maxHeight: '100px'}}>
+                            <PropertyImage image={property.image} images={property.images}/>
+                        </td>
+                        <td>{property.price}</td>
+                        <td>{property.location}</td>
+                        <td>{property.bedrooms}</td>
+                        <td>{property.bathrooms}</td>
+                        <td>{property.floorSize}</td>
+                        <td>{property.parking}</td>
+                        <td>{property.levy}</td>
+                        <td>{property.rates}</td>
+                    </tr>)}
+                    </tbody>
+                </Table>
+            </TableScrollbar>
+        </div>
     )
 }

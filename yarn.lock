@@ -9369,6 +9369,11 @@ react-swipeable@^6.0.0:
   resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-6.1.0.tgz#558b08a797a749a33e98492af84f2ca84a23d146"
   integrity sha512-vB6+bv1I5L9nfuM7quu41o/kK1f3a7cTQ3NHNWkOltg5uhBpnH6xvkQJeoPfKQ6K4pnifELXY65wzWwWBa+zGg==
 
+react-table-scrollbar@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/react-table-scrollbar/-/react-table-scrollbar-0.1.9.tgz#5348c490715af40f0befa7d80397c1205d1910e3"
+  integrity sha512-BmG2au4IJ0mqxBJbc2idalmW4eIwHwhaZMBiKMIKNFqgRGrCUK1tzXUGsM6AtkAVceQamtrUhMTET0UXb92VQw==
+
 react-transition-group@^4.4.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
