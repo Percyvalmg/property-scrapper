@@ -1,7 +1,7 @@
 import {Col, Container, Row} from "react-bootstrap";
 import React from "react";
 
-export const PropertyViewEmpty = () => {
+export const PropertyTableEmpty = () => {
     return (
         <Container fluid>
             <Row className={'align-items-center text-center'} style={{height: '81vh', color: 'grey'}}>
