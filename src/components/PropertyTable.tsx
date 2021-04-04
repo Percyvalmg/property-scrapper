@@ -8,7 +8,7 @@ export const PropertyTable: React.FC<PropertyTableProps> = ({childrenArray, chil
     return (
         <div style={{backgroundColor: '#3d4349'}}>
             <TableScrollbar height={"100vh"}>
-                <Table bordered hover variant="dark">
+                <Table striped bordered hover variant="dark">
                     <thead>
                     <tr>
                         <th/>
