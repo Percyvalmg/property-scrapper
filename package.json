@@ -15,6 +15,7 @@
     "formik": "^2.2.6",
     "react": "^17.0.2",
     "react-bootstrap": "^1.5.2",
+    "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "react-table-scrollbar": "^0.1.9",
@@ -46,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-copy-to-clipboard": "^5.0.0"
   }
 }
