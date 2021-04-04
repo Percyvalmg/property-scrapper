@@ -1,13 +1,10 @@
 import {Table} from "react-bootstrap";
-import React from "react";
-import {PropertyEntity} from "../types";
-import {usePropertyData} from "./usePropertyData";
+import React, {ReactNode, ReactNodeArray} from "react";
 import TableScrollbar from 'react-table-scrollbar';
-import {PropertyTableRow} from "./PropertyTableRow";
 
-export const PropertyTable = () => {
-    const {propertyData, setPropertyData} = usePropertyData();
+type PropertyTableProps = { childrenArray: ReactNodeArray | false; children: ReactNode }
 
+export const PropertyTable: React.FC<PropertyTableProps> = ({childrenArray, children}: PropertyTableProps) => {
     return (
         <div style={{backgroundColor: '#3d4349'}}>
             <TableScrollbar height={"100vh"}>
@@ -27,14 +24,8 @@ export const PropertyTable = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {propertyData.map((property: PropertyEntity, index) =>
-                        <PropertyTableRow
-                            key={index}
-                            property={property}
-                            setPropertyData={setPropertyData}
-                            propertyData={propertyData}
-                            index={index}
-                        />)}
+                    {childrenArray ? childrenArray.map(child => child) :
+                        <td colSpan={10} className={'p-0'}>{children}</td>}
                     </tbody>
                 </Table>
             </TableScrollbar>

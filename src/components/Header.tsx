@@ -4,7 +4,6 @@ import axios from "axios";
 import React from "react";
 import * as Yup from "yup";
 import {PropertyEntity} from "../types";
-import {usePropertyData} from "./usePropertyData";
 
 const schema = Yup.object().shape({
     url: Yup.string()
@@ -17,10 +16,9 @@ const schema = Yup.object().shape({
     .required('required'),
 });
 
-type HeadingProps = {};
-export const Header = (props: HeadingProps) => {
+type HeaderProps = { propertyCollection: PropertyEntity[], setPropertyCollection: (data: PropertyEntity[]) => void };
+export const Header: React.FC<HeaderProps> = ({propertyCollection, setPropertyCollection}) => {
     const serverUrl = window.location.origin.toString().includes('localhost') ? 'http://localhost:4000' : 'https://us-central1-property-scrapper-pmg.cloudfunctions.net/app'
-    const {propertyData, setPropertyData} = usePropertyData()
     return (
         <Navbar expand="sm" bg="dark" variant="dark">
             <Navbar.Brand href="#home">Property Scrapper</Navbar.Brand>
@@ -35,7 +33,7 @@ export const Header = (props: HeadingProps) => {
                             const response = await axios.get(`${serverUrl}/getPropertyData?url=${url}`);
                             const responseData: PropertyEntity = response.data;
                             let itemAlreadyExist = false;
-                            (propertyData as PropertyEntity[]).forEach(item => {
+                            propertyCollection.forEach(item => {
                                 itemAlreadyExist =
                                     item.title === responseData.title &&
                                     item.price === responseData.price &&
@@ -43,7 +41,7 @@ export const Header = (props: HeadingProps) => {
                             })
 
                             if (!itemAlreadyExist) {
-                                setPropertyData([...propertyData, response.data]);
+                                setPropertyCollection([...propertyCollection, response.data]);
                             } else {
                                 setErrors({url: 'you have already imported this data'})
                             }
