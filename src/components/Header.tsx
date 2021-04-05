@@ -7,10 +7,9 @@ export const Header: React.FC<HeaderProps> = ({children}) => {
         <Navbar expand="sm" bg="dark" variant="dark">
             <Navbar.Brand href="#home">Property Scrapper</Navbar.Brand>
             <Navbar.Toggle/>
-            <Navbar.Collapse className={'justify-content-end'}>
+            <Navbar.Collapse className={"justify-content-end"}>
                 {children}
             </Navbar.Collapse>
         </Navbar>
-    )
-}
-
+    );
+};

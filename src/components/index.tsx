@@ -1,6 +1,6 @@
 import {Header} from "./Header";
 import {Footer} from "./Footer";
-import {PropertyTableRow} from './PropertyTableRow'
+import {PropertyTableRow} from "./PropertyTableRow";
 import {PropertyImportForm} from "./PropertyImportForm";
 import {PropertyTable} from "./PropertyTable";
 import {PropertyTableEmpty} from "./PropertyTableEmpty";
@@ -11,5 +11,5 @@ export {
     PropertyTableRow,
     PropertyImportForm,
     PropertyTable,
-    PropertyTableEmpty
-}
+    PropertyTableEmpty,
+};
