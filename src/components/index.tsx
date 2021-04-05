@@ -10,7 +10,7 @@ export {
     Header,
     Footer,
     PropertyTableRow,
-    AuthForm
+    AuthForm,
     PropertyImportForm,
     PropertyTable,
     PropertyTableEmpty,
