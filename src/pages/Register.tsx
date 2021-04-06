@@ -1,23 +1,18 @@
 import React, {useEffect} from "react";
-import {Col, Container, Row} from "react-bootstrap"; /*  */
-import firebase from "firebase/app";
+import {Card, Col, Container, Row} from "react-bootstrap";
 import {Link, useHistory} from "react-router-dom";
-import {AuthForm, Footer, Header} from "../components";
+import {Footer, Header} from "../components";
+import {useAuth} from "../services/AuthProvider";
 
-type RegisterProps = {};
-const Register: React.FC<RegisterProps> = () => {
+type RegisterProps = {}
+const Register: React.FC<RegisterProps> = ({children}) => {
     const history = useHistory();
 
-    useEffect(() => {
-        const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                history.push("/");
-            }
-            console.log("Auth Status Changed!", user);
-        });
+    const {currentUser} = useAuth();
 
-        return unsubscribe();
-    }, []);
+    useEffect(() => {
+        if (currentUser) history.push('/');
+    }, [currentUser])
 
     return (
         <>
@@ -28,13 +23,16 @@ const Register: React.FC<RegisterProps> = () => {
             </Header>
             <Container
                 className={"pt-5 text-center"}
-                style={{height: "87vh", backgroundColor: "#3d4349", color: "white"}}
-                fluid
+                style={{height: "87vh", backgroundColor: "#3d4349", color: "white"}} fluid
             >
-                <h1 className={"mb-5"}>Register</h1>
                 <Row className={"justify-content-center"}>
-                    <Col md={4}>
-                        <AuthForm isLoginForm={false}/>
+                    <Col sm={4}>
+                        <Card border="primary" className={'bg-dark text-white'}>
+                            <Card.Header as="h1">Register</Card.Header>
+                            <Card.Body>
+                                {children}
+                            </Card.Body>
+                        </Card>
                     </Col>
                 </Row>
             </Container>

@@ -4,14 +4,16 @@ import {PropertyTableRow} from "./PropertyTableRow";
 import {PropertyImportForm} from "./PropertyImportForm";
 import {PropertyTable} from "./PropertyTable";
 import {PropertyTableEmpty} from "./PropertyTableEmpty";
-import {AuthForm} from "./AuthForm";
+import {LoginForm} from "./LoginForm";
+import {RegistrationForm} from "./RegistrationForm";
 
 export {
     Header,
     Footer,
     PropertyTableRow,
-    AuthForm,
+    LoginForm,
     PropertyImportForm,
     PropertyTable,
     PropertyTableEmpty,
+    RegistrationForm
 };

@@ -1,26 +1,15 @@
 import {Footer, Header, PropertyImportForm, PropertyTable, PropertyTableEmpty, PropertyTableRow,} from "../components";
 import {PropertyEntity} from "../types";
 import React, {useEffect, useState} from "react";
-import firebase from "firebase/app";
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
+import {useAuth} from "../services/AuthProvider";
 
-const Home = () => {
-    const [user, setUser] = useState<firebase.User | null>(null);
+type HomeProps = {}
+const Home: React.FC<HomeProps> = ({}) => {
     const localStorageData = localStorage.getItem("propertyData");
     const [propertyCollection, setPropertyCollection] = useState<PropertyEntity[]>(localStorageData ? JSON.parse(localStorageData) : []);
-
-    useEffect(() => {
-        const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                console.log("Auth Status Changed!", user);
-                setUser(user);
-            }
-            console.log("Auth Status Changed!", user);
-        });
-
-        return unsubscribe();
-    }, [user, setUser]);
+    const {currentUser, handleSignOut} = useAuth();
 
     useEffect(() => {
         localStorage.setItem("propertyData", JSON.stringify(propertyCollection));
@@ -35,14 +24,13 @@ const Home = () => {
                         setPropertyCollection={setPropertyCollection}
                     />
 
-                    {user ? (
+                    {currentUser ? (
                         <Button
                             variant={"primary"}
-                            onClick={() => {
-                                firebase
-                                .auth()
-                                .signOut()
-                                .then(() => setUser(null));
+                            onClick={async () => {
+                                console.log('Logging out')
+                                const response = await handleSignOut();
+                                alert(response.message);
                             }}
                         >
                             Logout

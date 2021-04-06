@@ -14,7 +14,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({isSubmitting, label, 
     );
 };
 
-const LoadingIndicator = () => {
+export const LoadingIndicator = () => {
     return (
         <>
             <Spinner
