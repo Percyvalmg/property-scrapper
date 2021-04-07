@@ -1,13 +1,12 @@
 import {Table} from "react-bootstrap";
-import React, {ReactNode, ReactNodeArray} from "react";
+import React, {ReactNodeArray} from "react";
 import TableScrollbar from "react-table-scrollbar";
 
 type PropertyTableProps = {
     childrenArray: ReactNodeArray | false;
-    children: ReactNode;
 };
 
-export const PropertyTable: React.FC<PropertyTableProps> = ({childrenArray, children,}: PropertyTableProps) => {
+export const PropertyTable: React.FC<PropertyTableProps> = ({childrenArray, children}) => {
     return (
         <div style={{backgroundColor: "#3d4349"}}>
             <TableScrollbar height={"100vh"}>

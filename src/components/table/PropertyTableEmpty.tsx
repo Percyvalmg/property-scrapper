@@ -1,6 +1,6 @@
 import {Button, Col, Container, FormControl, InputGroup, Row,} from "react-bootstrap";
 import React from "react";
-import {Link} from "./Link";
+import {Link} from "../shared";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 
 export const PropertyTableEmpty = () => {

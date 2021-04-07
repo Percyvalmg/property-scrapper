@@ -1,10 +1,7 @@
-import {
-    handleLogin,
-    handleLoginWithGoogle,
-    handleRegister,
-    handleSignOut,
-    setCurrentUser
-} from "./authenticationService";
-import AuthCode from "./authCode";
+import ResponseCode from './responseCode'
+import {Response} from './response'
 
-export {handleLogin, AuthCode, handleRegister, handleSignOut, handleLoginWithGoogle, setCurrentUser};
+export {
+    ResponseCode,
+    Response
+};

@@ -1,6 +1,6 @@
 import SimpleReactLightbox, {SRLWrapper} from "simple-react-lightbox";
 import React from "react";
-import {PropertyEntity} from "../types";
+import {PropertyEntity} from "../../services/property/types";
 
 type PropertyImageProps = { property: PropertyEntity };
 export const PropertyTableImage = ({property}: PropertyImageProps) => {
