@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import AuthProvider from "./services/AuthProvider";
+import {AuthProvider} from "./services/auth";
 
 ReactDOM.render(
     <AuthProvider>

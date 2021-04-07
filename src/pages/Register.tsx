@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import {Card, Col, Container, Row} from "react-bootstrap";
+import {useAuth} from "../services/auth";
 import {Link, useHistory} from "react-router-dom";
 import {Footer, Header} from "../components";
 import {useAuth} from "../services/AuthProvider";
@@ -7,7 +8,6 @@ import {useAuth} from "../services/AuthProvider";
 type RegisterProps = {}
 const Register: React.FC<RegisterProps> = ({children}) => {
     const history = useHistory();
-
     const {currentUser} = useAuth();
 
     useEffect(() => {

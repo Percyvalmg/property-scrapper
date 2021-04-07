@@ -4,43 +4,50 @@ import {Link, useHistory} from "react-router-dom";
 import * as Yup from "yup";
 import {FormField} from "./FormField";
 import {LoadingIndicator, SubmitButton} from "./SubmitButton";
-import {useAuth} from "../services/AuthProvider";
-import {AuthCode} from "../services";
 import {AlertDismissible} from "./Alert";
 import {useState} from "react";
-import {AuthResponse} from "../services/authenticationService";
+import {AuthCode, AuthResponse, useAuth} from "../../services/auth";
 
 const schema = Yup.object().shape({
     email: Yup.string().email().required("required"),
     password: Yup.string().required("required"),
+    confirmPassword: Yup.string()
+    .required("required")
 });
 
-type LoginFormProps = {};
-export const LoginForm: React.FC<LoginFormProps> = () => {
+type RegistrationFormProps = {};
+export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
     const history = useHistory();
-    const {handleLogin, handleLoginWithGoogle} = useAuth();
+    const {handleRegister, handleLoginWithGoogle} = useAuth();
     const [showAlert, setShowAlert] = useState(false);
     const [authResponse, setAuthResponse] = useState<AuthResponse>();
 
     return (
         <Formik
             validationSchema={schema}
-            onSubmit={async (values, {setSubmitting}) => {
+            onSubmit={async (values, {setSubmitting, setErrors}) => {
                 setSubmitting(true);
-                const response = await handleLogin({
+                if (values.password !== values.confirmPassword) {
+                    setErrors({confirmPassword: 'passwords are not the same!'})
+                    return;
+                }
+
+                const response = await handleRegister({
                     email: values.email,
                     password: values.password,
-                })
-                setAuthResponse(response)
-                setShowAlert(true);
+                });
+
                 setSubmitting(false);
+                setAuthResponse(response);
+                setShowAlert(true);
             }}
             initialValues={{
                 email: "",
                 password: "",
+                confirmPassword: ""
             }}
         >
-            {({values, handleSubmit, handleChange, errors, setSubmitting, isSubmitting, resetForm}) => (
+            {({values, isValid, handleSubmit, handleChange, errors, setSubmitting, isSubmitting}) => (
                 <Form noValidate onSubmit={handleSubmit}>
                     <FormField
                         defaultValue={values.email}
@@ -57,6 +64,14 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
                         type={"password"}
                         onChangeHandler={handleChange}
                         error={errors.password}
+                    />
+                    <FormField
+                        defaultValue={values.confirmPassword}
+                        name={"confirmPassword"}
+                        placeholder={"Confirm Password"}
+                        type={"password"}
+                        onChangeHandler={handleChange}
+                        error={errors.confirmPassword}
                     />
 
                     {showAlert && <AlertDismissible
@@ -75,22 +90,24 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
                             <SubmitButton
                                 className={"mr-2"}
                                 isSubmitting={isSubmitting}
-                                label={"Login"}
+                                label={"Register"}
                             />
-                            <Link className={"btn btn-outline-primary"} to={"/register"}>
-                                Register
+                            <Link className={"btn btn-outline-primary"} to={"/login"}>
+                                Login
                             </Link>
                         </ButtonGroup>
                     </Row>
                     <Row className={"justify-content-center mt-3"}>
-                        <Button variant={'danger'} disabled={isSubmitting} onClick={async () => {
+                        <Button variant={'danger'} disabled={isSubmitting && !isValid} onClick={async () => {
                             setSubmitting(true);
                             const response = await handleLoginWithGoogle();
                             setSubmitting(false);
                             setAuthResponse(response);
                             setShowAlert(true);
-                        }}>{isSubmitting ? <LoadingIndicator/> : 'Login with Google'}</Button>
+                        }}>{isSubmitting ? <LoadingIndicator/> : 'Login with Google'}
+                        </Button>
                     </Row>
+
                 </Form>
             )}
         </Formik>
