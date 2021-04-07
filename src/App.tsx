@@ -1,7 +1,7 @@
 import React, {lazy, Suspense} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {LoginForm, RegistrationForm} from "./components";
+import {LoginForm, RegistrationForm} from "./components/forms";
 
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));

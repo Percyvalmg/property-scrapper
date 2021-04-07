@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import {PropertyEntity} from "../types";
+import {PropertyEntity} from "../../services/property/types";
 import {Form, InputGroup} from "react-bootstrap";
 import {Formik} from "formik";
 import * as Yup from "yup";

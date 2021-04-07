@@ -9,10 +9,10 @@ type FormFieldProps = {
     error: string | undefined;
     onChangeHandler: (e: ChangeEvent<any>) => void;
 };
+
 export const FormField: React.FC<FormFieldProps> = ({
-                                                        name, placeholder,
-                                                        type, defaultValue, error,
-                                                        onChangeHandler,
+                                                        name, placeholder, type,
+                                                        defaultValue, error, onChangeHandler,
                                                     }) => {
     return (
         <Form.Group controlId={`${name}FormGroup`}>
