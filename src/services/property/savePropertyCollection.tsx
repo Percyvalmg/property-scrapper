@@ -1,7 +1,7 @@
 import firebase from "firebase";
 import {PropertyEntity} from "./types";
 import ResponseCode from "../responseCode";
-import {db} from "../../firebase";
+import {analytics, db} from "../../firebase";
 import {checkIfLoggedIn, propertyCollectionRef} from "./propertyServiceUtility";
 import {Response} from "../response";
 
@@ -26,6 +26,9 @@ async function trySavePropertyCollection(user: firebase.User, propertyCollection
             message: `${propertyCollection.length} properties have been SAVED successfully!`,
         });
     } catch (e) {
+        analytics.logEvent('user_save_property_collection_error', {
+            errorMessage: e.message
+        })
         return Response({
             code: ResponseCode.ERROR,
             message: e.message,

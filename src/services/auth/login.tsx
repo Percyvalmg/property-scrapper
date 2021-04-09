@@ -1,4 +1,4 @@
-import {auth} from "../../firebase";
+import {analytics, auth} from "../../firebase";
 import AuthCode from "./authCode";
 import {authProps, AuthResponse} from "./types";
 import {Response} from "../response";
@@ -8,12 +8,16 @@ export const login = async ({email, password}: authProps): Promise<AuthResponse>
         const response = await auth.signInWithEmailAndPassword(email, password);
 
         if (response.user) {
+            analytics.logEvent('user_login_success')
             return Response({
                 code: AuthCode.SUCCESS,
                 message: "You have Logged in successfully!",
             })
         }
 
+        analytics.logEvent('user_login_error', {
+            errorMessage: 'unknown error'
+        })
         return Response({
             code: AuthCode.ERROR,
             message: "An error occurred while trying to log you in," +
@@ -25,6 +29,9 @@ export const login = async ({email, password}: authProps): Promise<AuthResponse>
 };
 
 function handleLoginErrorResponse(errorCode: string, errorMessage: string) {
+    analytics.logEvent('user_login_error', {
+        errorMessage: errorMessage
+    })
     switch (errorCode) {
         case "auth/wrong-password":
         case "auth/user-not-found":

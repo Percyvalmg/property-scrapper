@@ -2,7 +2,7 @@ import firebase from "firebase";
 import {SavedPropertyEntity} from "./types";
 import ResponseCode from "../responseCode";
 import {checkIfLoggedIn, propertyCollectionRef} from "./propertyServiceUtility";
-import {db} from "../../firebase";
+import {analytics, db} from "../../firebase";
 import {Response} from "../response";
 
 export const deletePropertyCollection = async (user: firebase.User | null, propertyCollection: SavedPropertyEntity[]) => {
@@ -27,6 +27,9 @@ async function tryDeletePropertyCollection(user: firebase.User, propertyCollecti
             message: `${propertyCollection.length} properties have been DELETED successfully!`,
         });
     } catch (e) {
+        analytics.logEvent('user_delete_property_collection_error', {
+            errorMessage: e.message
+        })
         return Response({
             code: ResponseCode.ERROR,
             message: e.message,
