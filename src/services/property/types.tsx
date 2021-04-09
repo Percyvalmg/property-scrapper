@@ -24,7 +24,8 @@ export type SavedPropertyEntity = {
     levy: string | undefined;
     parking: string | undefined;
     rates: string | undefined;
-    userId: string
+    userId: string;
+    id: string;
 }
 
 export type PropertyCollection = {

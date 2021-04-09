@@ -2,7 +2,7 @@ import firebase from "firebase";
 import {PropertyEntity} from "./types";
 import ResponseCode from "../responseCode";
 import {db} from "../../firebase";
-import {checkIfLoggedIn, getPropertyId, propertyCollectionRef} from "./propertyServiceUtility";
+import {checkIfLoggedIn, propertyCollectionRef} from "./propertyServiceUtility";
 import {Response} from "../response";
 
 export const savePropertyCollection = async (user: firebase.User | null, propertyCollection: PropertyEntity[]) => {
@@ -18,7 +18,7 @@ async function trySavePropertyCollection(user: firebase.User, propertyCollection
     try {
         const batch = db.batch()
         propertyCollection.forEach((property) => {
-            batch.set(propertyCollectionRef.doc(getPropertyId(property, user)), {userId: user?.uid, ...property});
+            batch.set(propertyCollectionRef.doc(), {userId: user?.uid, ...property});
         });
         await batch.commit()
         return Response({

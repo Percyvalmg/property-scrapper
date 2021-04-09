@@ -14,7 +14,7 @@ async function tryGetPropertyCollection(user: firebase.User) {
         let propertyCollection: SavedPropertyEntity[] = [];
         const snapShot = await propertyCollectionRef.where('userId', '==', user?.uid).get()
         snapShot.docs.forEach(property => {
-            propertyCollection.push(property.data() as unknown as SavedPropertyEntity)
+            propertyCollection.push({...property.data(), id: property.id} as unknown as SavedPropertyEntity)
         })
         return Response({
             code: ResponseCode.SUCCESS,

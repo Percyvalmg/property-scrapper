@@ -19,12 +19,12 @@ function App() {
                 <Suspense fallback={<div>Loading...</div>}>
                     <Switch>
                         <Route exact path="/" component={Home}/>
-                        <Route path="/Login" render={() =>
+                        <Route path="/login" render={() =>
                             <Login>
                                 <LoginForm/>
                             </Login>}
                         />
-                        <Route path="/Register" render={() =>
+                        <Route path="/register" render={() =>
                             <Register>
                                 <RegistrationForm/>
                             </Register>}

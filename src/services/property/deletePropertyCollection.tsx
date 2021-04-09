@@ -1,7 +1,7 @@
 import firebase from "firebase";
 import {SavedPropertyEntity} from "./types";
 import ResponseCode from "../responseCode";
-import {checkIfLoggedIn, getPropertyId, propertyCollectionRef} from "./propertyServiceUtility";
+import {checkIfLoggedIn, propertyCollectionRef} from "./propertyServiceUtility";
 import {db} from "../../firebase";
 import {Response} from "../response";
 
@@ -17,9 +17,9 @@ export const deletePropertyCollection = async (user: firebase.User | null, prope
 async function tryDeletePropertyCollection(user: firebase.User, propertyCollection: SavedPropertyEntity[]) {
     try {
         const batch = db.batch()
-        propertyCollection.forEach((property) => {
-            batch.delete(propertyCollectionRef.doc(getPropertyId(property, user)));
-        });
+        propertyCollection.forEach(property => {
+            batch.delete(propertyCollectionRef.doc(property.id));
+        })
 
         await batch.commit()
         return Response({
