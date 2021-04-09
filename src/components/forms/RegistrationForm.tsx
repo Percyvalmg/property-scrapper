@@ -7,6 +7,7 @@ import {LoadingIndicator, SubmitButton} from "./SubmitButton";
 import {AlertDismissible} from "./Alert";
 import {useState} from "react";
 import {AuthCode, AuthResponse, useAuth} from "../../services/auth";
+import {analytics} from "../../firebase";
 
 const schema = Yup.object().shape({
     email: Yup.string().email().required("required"),
@@ -31,6 +32,10 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
                     setErrors({confirmPassword: 'passwords are not the same!'})
                     return;
                 }
+
+                analytics.logEvent('submit_register_form', {
+                    user: values.email
+                })
 
                 const response = await handleRegister({
                     email: values.email,

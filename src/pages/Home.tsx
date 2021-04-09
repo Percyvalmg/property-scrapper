@@ -25,6 +25,11 @@ const Home: React.FC<HomeProps> = ({}) => {
     const hasMoreThanOneSavedProperty = savedPropertyCollection.length > 1;
 
     useEffect(() => {
+        analytics.setCurrentScreen('Home Page')
+        if (currentUser) analytics.setUserId(currentUser.uid)
+    }, [])
+
+    useEffect(() => {
         if (currentUser) {
             getPropertyCollection(currentUser)
             .then(response => {

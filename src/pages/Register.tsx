@@ -3,11 +3,16 @@ import {Card, Col, Container, Row} from "react-bootstrap";
 import {useAuth} from "../services/auth";
 import {Link, useHistory} from "react-router-dom";
 import {Footer, Header} from "../components/shared";
+import {analytics} from "../firebase";
 
 type RegisterProps = {}
 const Register: React.FC<RegisterProps> = ({children}) => {
     const history = useHistory();
     const {currentUser} = useAuth();
+
+    useEffect(() => {
+        analytics.setCurrentScreen('Registration Page')
+    }, [])
 
     useEffect(() => {
         if (currentUser) history.push('/');

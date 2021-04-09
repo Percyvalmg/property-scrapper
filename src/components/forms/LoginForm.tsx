@@ -7,6 +7,7 @@ import {LoadingIndicator, SubmitButton} from "./SubmitButton";
 import {AlertDismissible} from "./Alert";
 import {useState} from "react";
 import {AuthCode, AuthResponse, useAuth} from "../../services/auth";
+import {analytics} from "../../firebase";
 
 const schema = Yup.object().shape({
     email: Yup.string().email().required("required"),
@@ -25,6 +26,9 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
             validationSchema={schema}
             onSubmit={async (values, {setSubmitting}) => {
                 setSubmitting(true);
+                analytics.logEvent('submit_login_form', {
+                    user: values.email
+                })
                 const response = await handleLogin({
                     email: values.email,
                     password: values.password,

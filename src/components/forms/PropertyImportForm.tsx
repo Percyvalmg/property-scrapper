@@ -5,6 +5,8 @@ import {Form, InputGroup} from "react-bootstrap";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import {SubmitButton} from "./SubmitButton";
+import {analytics} from "../../firebase";
+import {useAuth} from "../../services/auth";
 
 const schema = Yup.object().shape({
     url: Yup.string()
@@ -32,6 +34,7 @@ export const PropertyImportForm: React.FC<PropertyImportFormProps> = ({
                                                                           propertyCollection,
                                                                           setPropertyCollection,
                                                                       }) => {
+    const {currentUser} = useAuth();
     const serverUrl = window.location.origin.toString().includes("localhost")
         ? "http://localhost:4000"
         : "https://us-central1-property-scrapper-pmg.cloudfunctions.net/app";
@@ -40,6 +43,13 @@ export const PropertyImportForm: React.FC<PropertyImportFormProps> = ({
             validationSchema={schema}
             onSubmit={async (values, {setSubmitting, setErrors, resetForm}) => {
                 const url = values.url;
+
+                analytics.logEvent('submit_property_import_form', {
+                    propertyUrl: values.url,
+                    user: currentUser ? currentUser.email : 'no-user',
+                    userId: currentUser?.uid
+                })
+
                 if (url) {
                     setSubmitting(true);
                     const response = await axios.get(
