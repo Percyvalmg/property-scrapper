@@ -18,7 +18,7 @@ async function trySavePropertyCollection(user: firebase.User, propertyCollection
     try {
         const batch = db.batch()
         propertyCollection.forEach((property) => {
-            batch.set(propertyCollectionRef.doc(getPropertyId(property)), {userId: user?.uid, ...property});
+            batch.set(propertyCollectionRef.doc(getPropertyId(property, user)), {userId: user?.uid, ...property});
         });
         await batch.commit()
         return Response({

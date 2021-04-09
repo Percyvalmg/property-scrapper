@@ -6,12 +6,12 @@ import {Response} from "../response";
 
 export const deleteProperty = async (user: firebase.User | null, property: SavedPropertyEntity) => {
     await checkIfLoggedIn(user);
-    return await tryDeleteProperty(property);
+    return await tryDeleteProperty(property, user!);
 }
 
-async function tryDeleteProperty(property: SavedPropertyEntity) {
+async function tryDeleteProperty(property: SavedPropertyEntity, user: firebase.User) {
     try {
-        await propertyCollectionRef.doc(getPropertyId(property)).delete()
+        await propertyCollectionRef.doc(getPropertyId(property, user)).delete()
         return Response({
             code: ResponseCode.SUCCESS,
             message: `${property.title} have been DELETED successfully!`,

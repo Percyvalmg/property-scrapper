@@ -6,8 +6,8 @@ import {Response} from "../response";
 
 export const propertyCollectionRef = db.collection('Properties');
 
-export const getPropertyId = (property: PropertyEntity | SavedPropertyEntity) => {
-    return `${property.bedrooms}${property.price}${property.bathrooms}${property.bathrooms}${property.rates}${property.levy}`
+export const getPropertyId = (property: PropertyEntity | SavedPropertyEntity, user: firebase.User) => {
+    return `${user.uid}${property.bedrooms}${property.price}${property.bathrooms}${property.bathrooms}${property.rates}${property.levy}`
     .replace(/ /g, '');
 }
 

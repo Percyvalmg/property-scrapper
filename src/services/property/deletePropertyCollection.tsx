@@ -18,7 +18,7 @@ async function tryDeletePropertyCollection(user: firebase.User, propertyCollecti
     try {
         const batch = db.batch()
         propertyCollection.forEach((property) => {
-            batch.delete(propertyCollectionRef.doc(getPropertyId(property)));
+            batch.delete(propertyCollectionRef.doc(getPropertyId(property, user)));
         });
 
         await batch.commit()
