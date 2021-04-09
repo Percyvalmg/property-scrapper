@@ -1,5 +1,8 @@
 import firebase from "firebase";
 import "firebase/auth";
+import "firebase/performance";
+import "firebase/firestore";
+import "firebase/analytics";
 
 const config = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -12,7 +15,8 @@ const config = {
 };
 
 const app = firebase.initializeApp(config);
-export const db = firebase.firestore();
-export const analytics = firebase.analytics();
+export const performance = app.performance();
+export const db = app.firestore();
+export const analytics = app.analytics();
 export const auth = app.auth();
 export default app;

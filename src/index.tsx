@@ -4,6 +4,17 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import {AuthProvider} from "./services/auth";
+import {analytics} from "./firebase";
+
+function sendToAnalytics({id, name, value}: { id: string; name: string, value: number }) {
+    analytics.logEvent('web_vitals', {
+        eventCategory: 'Web Vitals',
+        eventAction: name,
+        eventValue: Math.round(name === 'CLS' ? value * 1000 : value), // values must be integers
+        eventLabel: id,
+        nonInteraction: true,
+    });
+}
 
 ReactDOM.render(
     <AuthProvider>
@@ -11,7 +22,4 @@ ReactDOM.render(
     </AuthProvider>
     , document.getElementById("root"));
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals(sendToAnalytics);
