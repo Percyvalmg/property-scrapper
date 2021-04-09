@@ -5,17 +5,17 @@ import {Response} from "../response";
 
 export const register = async ({email, password,}: authProps): Promise<AuthResponse> => {
     try {
-        const response = await auth.createUserWithEmailAndPassword(email, password)
+        const response = await auth.createUserWithEmailAndPassword(email, password);
         if (response.user) {
             return Response({
                 code: AuthCode.SUCCESS,
-                message: "You have registered successfully!",
+                message: "You have registered successfully",
             });
         }
 
         return Response({
             code: AuthCode.ERROR,
-            message: "An error occurred while trying to log you in," +
+            message: "An error occurred while trying to register your account," +
                 "please try again later",
         });
     } catch (e) {

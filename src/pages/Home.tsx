@@ -8,6 +8,7 @@ import {PropertyEntity, SavedPropertyEntity} from "../services/property/types";
 import {Button, ButtonGroup} from "react-bootstrap";
 import {deletePropertyCollection, getPropertyCollection, savePropertyCollection,} from "../services/property";
 import {ResponseCode} from '../services'
+import {analytics} from "../firebase";
 
 type HomeProps = {}
 
@@ -45,7 +46,6 @@ const Home: React.FC<HomeProps> = ({}) => {
                         <Button
                             variant={"link"}
                             onClick={async () => {
-                                console.log('Logging out')
                                 const response = await handleSignOut();
                                 setSavedPropertyCollection([])
                                 alert(response.message);
