@@ -13,7 +13,7 @@ export const PropertyTable: React.FC<PropertyTableProps> = ({childrenArray, chil
                 <Table striped bordered hover variant="dark" className={'pb-5'}>
                     <thead>
                     <tr>
-                        <th/>
+                        <th>{childrenArray ? `${childrenArray.length} ${childrenArray.length > 1 ? 'properties' : 'property'}` : '0 properties'}</th>
                         <th>Image</th>
                         <th className={"px-5"}>Price</th>
                         <th>location</th>
