@@ -8,7 +8,7 @@ export const Header: React.FC<HeaderProps> = ({children}) => {
     return (
         <>
             <Navbar expand="sm" bg="dark" variant="dark">
-                <Navbar.Brand href="#home">Property Scrapper</Navbar.Brand>
+                <Navbar.Brand href="#home">Property Scraper</Navbar.Brand>
                 <Navbar.Toggle/>
                 <Navbar.Collapse className={"justify-content-end"}>
                     {!currentUser ? '' :
