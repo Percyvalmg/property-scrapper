@@ -3,6 +3,8 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {LoginForm, RegistrationForm} from "./components/forms";
 import {analytics} from "./firebase";
+import ForgotPassword from "./pages/ForgotPassword";
+import {ForgotPasswordForm} from "./components/forms/ForgotPasswordForm";
 
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -28,6 +30,11 @@ function App() {
                             <Register>
                                 <RegistrationForm/>
                             </Register>}
+                        />
+                        <Route path="/forgot-password" render={() =>
+                            <ForgotPassword>
+                                <ForgotPasswordForm/>
+                            </ForgotPassword>}
                         />
                     </Switch>
                 </Suspense>

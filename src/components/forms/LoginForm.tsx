@@ -60,7 +60,9 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
                         onChangeHandler={handleChange}
                         error={errors.password}
                     />
-
+                    <div className={'mb-2'}>
+                        <Link to={'/forgot-password'}>forgot password?</Link>
+                    </div>
                     {showAlert && <AlertDismissible
                         onClose={() => {
                             if (authResponse?.code === AuthCode.SUCCESS) {

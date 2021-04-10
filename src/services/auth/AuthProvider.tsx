@@ -5,14 +5,16 @@ import {login} from "./login";
 import {loginWithGoogle} from './loginWithGoogle'
 import {register} from './register'
 import {signOut} from './signOut'
-import {authProps, AuthResponse, UserContextProps} from "./types";
+import {UserContextProps} from "./types";
+import {sendPasswordResetEmail} from "./resetPassword";
 
 const UserContext = React.createContext<UserContextProps>({
     currentUser: null,
     handleLogin: login,
     handleRegister: register,
     handleLoginWithGoogle: loginWithGoogle,
-    handleSignOut: signOut
+    handleSignOut: signOut,
+    sendPasswordResetEmail: sendPasswordResetEmail
 });
 
 export const useAuth = () => {
@@ -31,18 +33,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         return unsubscribe;
     }, [])
 
-    const value: {
-        currentUser: firebase.User | null;
-        handleLogin: ({email, password}: authProps) => Promise<AuthResponse>,
-        handleRegister: ({email, password}: authProps) => Promise<AuthResponse>,
-        handleLoginWithGoogle: () => Promise<AuthResponse>,
-        handleSignOut: () => Promise<AuthResponse>,
-    } = {
+    const value: UserContextProps = {
         currentUser,
         handleLogin: login,
         handleRegister: register,
         handleLoginWithGoogle: loginWithGoogle,
         handleSignOut: signOut,
+        sendPasswordResetEmail
     }
 
     return (

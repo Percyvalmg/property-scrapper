@@ -17,4 +17,5 @@ export type UserContextProps = {
     handleRegister: ({email, password}: authProps) => Promise<AuthResponse>,
     handleLoginWithGoogle: () => Promise<AuthResponse>,
     handleSignOut: () => Promise<AuthResponse>,
+    sendPasswordResetEmail: (email: string) => Promise<AuthResponse>
 }
