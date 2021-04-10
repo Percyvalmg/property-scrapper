@@ -2,6 +2,7 @@ import React, {lazy, Suspense, useEffect} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {analytics} from "./firebase";
+import {LoadingIndicatorScreen} from "./components/shared";
 
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
@@ -16,7 +17,7 @@ function App() {
     return (
         <>
             <Router>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<LoadingIndicatorScreen/>}>
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route path="/login" component={Login}/>
