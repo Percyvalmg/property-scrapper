@@ -1,5 +1,5 @@
 import {Formik} from "formik";
-import {Button, ButtonGroup, Form, Row} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 import {Link, useHistory} from "react-router-dom";
 import * as Yup from "yup";
 import {FormField} from "./FormField";
@@ -90,29 +90,33 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = () => {
                         {authResponse?.message}
                     </AlertDismissible>}
 
-                    <Row className={"justify-content-center"}>
-                        <ButtonGroup className={"p-1"}>
-                            <SubmitButton
-                                className={"mr-2"}
-                                isSubmitting={isSubmitting}
-                                label={"Register"}
-                            />
-                            <Link className={"btn btn-outline-primary"} to={"/login"}>
-                                Login
-                            </Link>
-                        </ButtonGroup>
-                    </Row>
-                    <Row className={"justify-content-center mt-3"}>
-                        <Button variant={'danger'} disabled={isSubmitting && !isValid} onClick={async () => {
-                            setSubmitting(true);
-                            const response = await handleLoginWithGoogle();
-                            setSubmitting(false);
-                            setAuthResponse(response);
-                            setShowAlert(true);
-                        }}>{isSubmitting ? <LoadingIndicator/> : 'Login with Google'}
-                        </Button>
-                    </Row>
-
+                    <Form.Group className={"mt-5"}>
+                        <SubmitButton
+                            isSubmitting={isSubmitting}
+                            label={"Register"}
+                            block={true}
+                        />
+                    </Form.Group>
+                    <div className={'mb-4'}>
+                        <hr className="hr-or" color={'white'}/>
+                        <span className="span-or">or</span>
+                    </div>
+                    <Form.Group>
+                        <Button variant={'outline-danger'} disabled={isSubmitting}
+                                onClick={async () => {
+                                    setSubmitting(true);
+                                    const response = await handleLoginWithGoogle();
+                                    setSubmitting(false);
+                                    setAuthResponse(response);
+                                    setShowAlert(true);
+                                }} block={true}>{isSubmitting ?
+                            <LoadingIndicator/> : 'Signup using Google'}</Button>
+                    </Form.Group>
+                    <Form.Group>
+                        <p className="mt-4 mb-0">Already have account?
+                            <Link to={'/login'}> Login here</Link>
+                        </p>
+                    </Form.Group>
                 </Form>
             )}
         </Formik>

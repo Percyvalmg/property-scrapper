@@ -7,7 +7,7 @@ import {analytics} from "../../firebase";
 import {FormField} from "./FormField";
 import {AlertDismissible} from "./Alert";
 import {SubmitButton} from "./SubmitButton";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 const schema = Yup.object().shape({
     email: Yup.string().email().required("required"),
@@ -57,11 +57,18 @@ export const ForgotPasswordForm = () => {
                         variant={authResponse?.code === AuthCode.SUCCESS ? 'success' : 'danger'}>
                         {authResponse?.message}
                     </AlertDismissible>}
-                    <SubmitButton
-                        className={"mr-2"}
-                        isSubmitting={isSubmitting}
-                        label={"Send Reset Password Email"}
-                    />
+                    <Form.Group className={'mt-5'}>
+                        <SubmitButton
+                            isSubmitting={isSubmitting}
+                            label={"Send Reset Password Email"}
+                            block={true}
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <p className="mt-4 mb-0">Just remembered your password?
+                            <Link to={'/login'}> Login here</Link>
+                        </p>
+                    </Form.Group>
                 </Form>
             )}
         </Formik>

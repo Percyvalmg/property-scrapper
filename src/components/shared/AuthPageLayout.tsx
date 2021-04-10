@@ -4,6 +4,7 @@ import {useAuth} from "../../services/auth";
 import {Link, useHistory} from "react-router-dom";
 import {Footer, Header} from "./index";
 import {analytics} from "../../firebase";
+import bgImage from "../../assets/login-bg.jpeg"
 
 type AuthPageLayoutProps = { title: string }
 export const AuthPageLayout: React.FC<AuthPageLayoutProps> = ({title, children}) => {
@@ -28,14 +29,22 @@ export const AuthPageLayout: React.FC<AuthPageLayoutProps> = ({title, children})
 
             <Container
                 className={"pt-5 text-center"}
-                style={{height: "87vh", backgroundColor: "#3d4349", color: "white"}} fluid
+                style={{
+                    height: "87vh",
+                    background: "url(" + bgImage + ") no-repeat center center fixed",
+                    backgroundSize: 'cover',
+                    color: "white"
+                }} fluid
             >
                 <Row className={"justify-content-center"}>
                     <Col sm={4}>
-                        <Card border="primary" className={'bg-dark text-white'}>
-                            <Card.Header as="h1">{title}</Card.Header>
+                        <Card border="light" className={'bg-dark text-light'}>
+                            {/*<Card.Header as="h1">{title}</Card.Header>*/}
                             <Card.Body>
-                                {children}
+                                <Card.Title as={'h1'}>{title}</Card.Title>
+                                <Card.Text>
+                                    {children}
+                                </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>

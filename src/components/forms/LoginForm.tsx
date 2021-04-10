@@ -1,5 +1,5 @@
 import {Formik} from "formik";
-import {Button, ButtonGroup, Form, Row} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 import {Link, useHistory} from "react-router-dom";
 import * as Yup from "yup";
 import {FormField} from "./FormField";
@@ -60,9 +60,7 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
                         onChangeHandler={handleChange}
                         error={errors.password}
                     />
-                    <div className={'mb-2'}>
-                        <Link to={'/forgot-password'}>forgot password?</Link>
-                    </div>
+
                     {showAlert && <AlertDismissible
                         onClose={() => {
                             if (authResponse?.code === AuthCode.SUCCESS) {
@@ -73,28 +71,38 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
                         variant={authResponse?.code === AuthCode.SUCCESS ? 'success' : 'danger'}>
                         {authResponse?.message}
                     </AlertDismissible>}
+                    <Form.Group>
+                        <Link to={'/forgot-password'}>forgot your password?</Link>
+                    </Form.Group>
+                    <Form.Group>
+                        <SubmitButton
+                            className={"mt-3"}
+                            isSubmitting={isSubmitting}
+                            label={"Login"}
+                            block={true}
+                        />
+                    </Form.Group>
 
-                    <Row className={"justify-content-center"}>
-                        <ButtonGroup className={"p-1"}>
-                            <SubmitButton
-                                className={"mr-2"}
-                                isSubmitting={isSubmitting}
-                                label={"Login"}
-                            />
-                            <Link className={"btn btn-outline-primary"} to={"/register"}>
-                                Register
-                            </Link>
-                        </ButtonGroup>
-                    </Row>
-                    <Row className={"justify-content-center mt-3"}>
-                        <Button variant={'danger'} disabled={isSubmitting} onClick={async () => {
-                            setSubmitting(true);
-                            const response = await handleLoginWithGoogle();
-                            setSubmitting(false);
-                            setAuthResponse(response);
-                            setShowAlert(true);
-                        }}>{isSubmitting ? <LoadingIndicator/> : 'Login with Google'}</Button>
-                    </Row>
+                    <div className={'mb-4'}>
+                        <hr className="hr-or" color={'white'}/>
+                        <span className="span-or">or</span>
+                    </div>
+                    <Form.Group>
+                        <Button variant={'outline-danger'} disabled={isSubmitting}
+                                onClick={async () => {
+                                    setSubmitting(true);
+                                    const response = await handleLoginWithGoogle();
+                                    setSubmitting(false);
+                                    setAuthResponse(response);
+                                    setShowAlert(true);
+                                }} block={true}>{isSubmitting ?
+                            <LoadingIndicator/> : 'Signup using Google'}</Button>
+                    </Form.Group>
+                    <Form.Group>
+                        <p className="mt-4 mb-0">Don't have account?
+                            <Link to={'/register'}> Sign up here</Link>
+                        </p>
+                    </Form.Group>
                 </Form>
             )}
         </Formik>

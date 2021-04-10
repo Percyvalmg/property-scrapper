@@ -4,11 +4,12 @@ type SubmitButtonProps = {
     isSubmitting: boolean;
     label: string;
     className?: string;
+    block?: boolean;
 };
 
-export const SubmitButton: React.FC<SubmitButtonProps> = ({isSubmitting, label, className,}) => {
+export const SubmitButton: React.FC<SubmitButtonProps> = ({isSubmitting, label, className, block = false}) => {
     return (
-        <Button type="submit" disabled={isSubmitting} className={className}>
+        <Button type="submit" disabled={isSubmitting} className={className} block={block}>
             {isSubmitting ? <LoadingIndicator/> : label}
         </Button>
     );
