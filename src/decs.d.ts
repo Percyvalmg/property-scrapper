@@ -1,2 +1,1 @@
-declare module 'simple-react-lightbox'
-declare module 'react-table-scrollbar'
+declare module 'woocommerce-api'

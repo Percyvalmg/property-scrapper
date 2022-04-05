@@ -10,7 +10,7 @@ function sendToAnalytics({id, name, value}: { id: string; name: string, value: n
     analytics.logEvent('web_vitals', {
         eventCategory: 'Web Vitals',
         eventAction: name,
-        eventValue: Math.round(name === 'CLS' ? value * 1000 : value), // values must be integers
+        eventValue: Math.round(name === 'CLS' ? value * 1000 : value),
         eventLabel: id,
         nonInteraction: true,
     });

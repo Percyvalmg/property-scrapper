@@ -16,8 +16,9 @@ export const Header: React.FC<HeaderProps> = ({children}) => {
                         <Alert variant={'danger'} className={'m-0'}>In order for you to save your data, you need to
                             verify
                             your email address. click
-                            <a className={'p-0 m-0'} style={{cursor: 'pointer', color: 'blue'}}
-                               onClick={async () => {
+                            <a href="#" className={'p-0 m-0'} style={{cursor: 'pointer', color: 'blue'}}
+                               onClick={async (e) => {
+                                   e.preventDefault()
                                    try {
                                        await currentUser?.sendEmailVerification({url: window.location.origin})
                                        alert(`An email has been sent to ${currentUser?.email} for verification.`);
